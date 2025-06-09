@@ -13,6 +13,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vk.email.dto.SendEmailDto;
 
+/**
+ * SendEmailConsumer is a service that listens to the Kafka topic "sendEmail"
+ */
 @Service
 public class SendEmailConsumer {
 	private ObjectMapper objectMapper;
@@ -23,6 +26,14 @@ public class SendEmailConsumer {
 		this.emailUtil = emailUtil;
 	}
 
+	/**
+	 * This method listens to the Kafka topic "sendEmail" and processes the incoming
+	 * messages. It deserializes the message into a SendEmailDto object and sends an
+	 * email using the EmailUtil.
+	 * 
+	 * @param message The JSON string message received from the Kafka topic.
+	 * @throws RuntimeException if there is an error during JSON processing.
+	 */
 	@KafkaListener(topics = "sendEmail", groupId = "emailService")
 	public void handleSendEmailMessage(String message) {
 		// Code to send an Email to the user.
